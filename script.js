@@ -34,7 +34,31 @@ function Player(name, marker) {
 };
 
 const game = (() => {
+    const players = [Player("player1", "x"), Player("player2", "o")];
+    let activePlayer = players[0];
 
+    const getActivePlayer = () => activePlayer;
+
+    const toggleActivePlayer = () => {
+        if (activePlayer === players[0]) {
+            activePlayer = players[1];
+        } else if (activePlayer === players[1]) {
+            activePlayer = players[0];
+        } else {
+            throw new Error(`Unexpected active player: ${activePlayer}`);
+        }
+    };
+
+    const makeMove = (row, column) => {
+        // TODO
+        // Later: Check if move is valid
+    }
+
+    return {
+        getActivePlayer,
+        toggleActivePlayer,
+        makeMove,
+    }
 })();
 
 const displayController = (() => {
