@@ -62,7 +62,29 @@ const game = (() => {
     };
 
     const makeMove = (row, column) => {
-        // TODO (later): Check if move is invalid (field is already occupied or out of range) -> error
+        const board = gameboard.getGameboard();
+
+        // Potential enhancements:
+        // game.makeMove(1.5, 0);
+        // game.makeMove("foo", 0);
+        // game.makeMove(undefined, 0);
+
+        if (row < 0) {
+            throw new Error(`Row value '${row}' is not allowed.`);
+        }
+        if (column < 0) {
+            throw new Error(`Column value '${column}' is not allowed.`);
+        }
+        if (board.length <= row) {
+            throw new Error(`Row ${row} is out of range.`);
+        }
+        if (board[row].length <= column) {
+            throw new Error(`Column ${column} is out of range.`);
+        }
+        if (board[row][column] !== EMPTY_FIELD) {
+            throw new Error(`Field ${row},${column} is already occupied.`);
+        }
+
         gameboard.addMarker(row, column, activePlayer.getMarker());
         toggleActivePlayer();
 
@@ -76,9 +98,9 @@ const game = (() => {
         }
 
         // For testing - TODO: Remove later
-        console.log(gameboard.getGameboard()[0]);
-        console.log(gameboard.getGameboard()[1]);
-        console.log(gameboard.getGameboard()[2]);
+        console.log(board[0]);
+        console.log(board[1]);
+        console.log(board[2]);
     };
 
     const gameOver = () => {
@@ -124,9 +146,6 @@ const game = (() => {
             throw new Error(`No player with marker '${marker}'`);
         }
     };
-
-    // TODO: Reset game?
-
 
     return {
         getActivePlayer,
