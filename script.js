@@ -7,13 +7,16 @@ const gameboard = (() => {
     const columns = 3;
     const gameboard = [];
 
-    // TODO: Put into initialize gameboard function or something, call it once and return it to make it available for the game controler
-    for (let i = 0; i < rows; i++) {
-        gameboard[i] = [];
-        for (let j = 0; j < columns; j++) {
-            gameboard[i].push(EMPTY_FIELD);
+    const resetBoard = () => {
+        for (let i = 0; i < rows; i++) {
+            gameboard[i] = [];
+            for (let j = 0; j < columns; j++) {
+                gameboard[i].push(EMPTY_FIELD);
+            }
         }
-    }
+    };
+
+    resetBoard();
 
     const getGameboard = () => gameboard;
 
@@ -24,6 +27,7 @@ const gameboard = (() => {
     return {
         getGameboard,
         addMarker,
+        resetBoard,
     }
 })();
 
@@ -63,13 +67,12 @@ const game = (() => {
         toggleActivePlayer();
 
         if (gameOver()) {
-            // TODO: Reset game - WEITER!!!
-            // Remember special handling for ties
             if (gameOver() === "tie") {
-                console.log("tie");
+                console.log("Tie");
             } else {
                 console.log(gameOver().getName(), "won");
             }
+            gameboard.resetBoard();
         }
 
         // For testing - TODO: Remove later
@@ -99,7 +102,7 @@ const game = (() => {
             return identifyWinner(board[0][0]);
         } else if (board[0][2] != EMPTY_FIELD && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
             return identifyWinner(board[0][2]);
-        } else if (!board[0].includes("") && !board[1].includes("") && !board[2].includes("")) {
+        } else if (!board[0].includes(EMPTY_FIELD) && !board[1].includes(EMPTY_FIELD) && !board[2].includes(EMPTY_FIELD)) {
             return "tie";
         } else {
             return false;
