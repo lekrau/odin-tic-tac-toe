@@ -64,7 +64,9 @@ const game = (() => {
         gameOver();
 
         // For testing - TODO: Remove later
-        console.log(gameboard.getGameboard());
+        console.log(gameboard.getGameboard()[0]);
+        console.log(gameboard.getGameboard()[1]);
+        console.log(gameboard.getGameboard()[2]);
     };
 
     const gameOver = () => {
@@ -95,6 +97,9 @@ const game = (() => {
         } else if (board[0][2] != EMPTY_FIELD && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
             console.log(board[0][2] + " won");
             return true;
+        } else if (!board[0].includes("") && !board[1].includes("") && !board[2].includes("")) {
+            console.log("tie");
+            return true;
         } else {
             return false;
         }
@@ -103,7 +108,11 @@ const game = (() => {
     const identifyWinner = (marker) => {
         // TODO
         // Return winner based on marker, as passed by gameOver()
+        // WEITER!!!
     };
+
+    // TODO: Reset game?
+
 
     return {
         getActivePlayer,
@@ -113,17 +122,17 @@ const game = (() => {
 })();
 
 // Testing - TODO (later): Remove
-console.log(game.getActivePlayer().getName());
-game.makeMove(0, 0);
-game.makeMove(0, 1);
-game.makeMove(0, 2);
-game.makeMove(1, 0);
-game.makeMove(1, 1);
-game.makeMove(1, 2);
-game.makeMove(2, 0);
-game.makeMove(2, 1);
-game.makeMove(2, 2);
-console.log(game.getActivePlayer().getName());
+console.log("game.getActivePlayer().getName():", game.getActivePlayer().getName());
+game.makeMove(0, 0); // x
+game.makeMove(0, 1); // o
+game.makeMove(0, 2); // x
+game.makeMove(1, 1); // o
+game.makeMove(1, 0); // x
+game.makeMove(2, 0); // o
+game.makeMove(2, 1); // x
+game.makeMove(1, 2); // o
+game.makeMove(2, 2); // x
+console.log("game.getActivePlayer().getName():", game.getActivePlayer().getName());
 
 const displayController = (() => {
 
