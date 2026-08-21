@@ -180,17 +180,39 @@ const game = (() => {
 // game.makeMove(1, 2); // o
 // game.makeMove(2, 2); // x
 // Tie
-// game.makeMove(0, 0); // x
-// game.makeMove(0, 1); // o
-// game.makeMove(0, 2); // x
-// game.makeMove(1, 2); // o
-// game.makeMove(1, 0); // x
-// game.makeMove(2, 0); // o
-// game.makeMove(1, 1); // x
-// game.makeMove(2, 2); // o
-// game.makeMove(2, 1); // x
+game.makeMove(0, 0); // x
+game.makeMove(0, 1); // o
+game.makeMove(0, 2); // x
+game.makeMove(1, 2); // o
+game.makeMove(1, 0); // x
+game.makeMove(2, 0); // o
+game.makeMove(1, 1); // x
+game.makeMove(2, 2); // o
+game.makeMove(2, 1); // x
 // console.log("game.getActivePlayer().getName():", game.getActivePlayer().getName());
 
 const displayController = (() => {
+    const boardContainer = document.querySelector(".board-container");
 
+    const renderBoard = () => {
+        const board = gameboard.getGameboard();
+        boardContainer.innerHTML = "";
+
+        for (let i = 0; i < board.length; i++) {
+            const column = board[i];
+            for (let j = 0; j < column.length; j++) {
+                const fieldButton = document.createElement("button");
+                fieldButton.textContent = column[j];
+                fieldButton.dataset.column = i;
+                fieldButton.dataset.row = j;
+                boardContainer.appendChild(fieldButton);
+            }
+        }
+    };
+
+    return {
+        renderBoard,
+    }
 })();
+
+displayController.renderBoard();

@@ -77,10 +77,19 @@ body {
 }
 
 body {
+    text-align: center;
 }
 
 h1 {
+    margin: 1em;
 }
 
 button {
+    border-radius: 0;
+}
+
+.board-container {
+    display: grid;
+    grid-template-columns: repeat(3, min-content);
+    justify-content: center;
 }
