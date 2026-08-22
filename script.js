@@ -55,6 +55,8 @@ const game = (() => {
 
     const getActivePlayer = () => activePlayer;
 
+    const getGameResult = () => gameResult;
+
     const toggleActivePlayer = () => {
         if (activePlayer === players[0]) {
             activePlayer = players[1];
@@ -100,16 +102,9 @@ const game = (() => {
         gameResult = checkGameResult();
         if (gameResult !== null) {
             if (gameResult === "tie") {
-                console.log("Tie");
             } else {
-                console.log(gameResult.getName(), "won");
             }
         }
-
-        // For testing - TODO: Remove later
-        console.log(board[0]);
-        console.log(board[1]);
-        console.log(board[2]);
     };
 
     const restartGame = () => {
@@ -164,6 +159,7 @@ const game = (() => {
         getActivePlayer,
         makeMove,
         restartGame,
+        getGameResult,
     }
 })();
 
@@ -180,15 +176,15 @@ const game = (() => {
 // game.makeMove(1, 2); // o
 // game.makeMove(2, 2); // x
 // Tie
-game.makeMove(0, 0); // x
-game.makeMove(0, 1); // o
-game.makeMove(0, 2); // x
-game.makeMove(1, 2); // o
-game.makeMove(1, 0); // x
-game.makeMove(2, 0); // o
-game.makeMove(1, 1); // x
-game.makeMove(2, 2); // o
-game.makeMove(2, 1); // x
+// game.makeMove(0, 0); // x
+// game.makeMove(0, 1); // o
+// game.makeMove(0, 2); // x
+// game.makeMove(1, 2); // o
+// game.makeMove(1, 0); // x
+// game.makeMove(2, 0); // o
+// game.makeMove(1, 1); // x
+// game.makeMove(2, 2); // o
+// game.makeMove(2, 1); // x
 // console.log("game.getActivePlayer().getName():", game.getActivePlayer().getName());
 
 const displayController = (() => {
@@ -217,6 +213,14 @@ const displayController = (() => {
         const column = target.dataset.column;
         game.makeMove(row, column);
         renderBoard();
+        if (game.getGameResult() !== null) {
+            const resultDisplay = document.querySelector(".game-result");
+            if (game.getGameResult() === "tie") {
+                resultDisplay.textContent = "Game over. It's a tie!"
+            } else {
+                resultDisplay.textContent = `Game over. ${game.getGameResult().getName()} won!`;
+            }
+        }
     };
 
     return {

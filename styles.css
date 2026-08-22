@@ -101,3 +101,8 @@ button {
     grid-template-columns: repeat(3, min-content);
     justify-content: center;
 }
+
+.game-result {
+    margin-top: 1em;
+    font-size: 1.5em;
+}
