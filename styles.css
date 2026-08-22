@@ -83,7 +83,7 @@ h1 {
     margin: 1em;
 }
 
-button {
+.board__field {
     border-radius: 0;
     width: 3.5em;
     height: 3.5em;
@@ -103,6 +103,28 @@ button {
 }
 
 .game-result {
-    margin-top: 1em;
+    margin: 1em;
     font-size: 1.5em;
+}
+
+.reset-game {
+    background-color: steelblue;
+    border: none;
+    color: white;
+    padding: 0.8em 1.5em;
+    border-radius: 15px;
+}
+
+.reset-game:enabled {
+    cursor: pointer;
+}
+
+.reset-game:disabled {
+    opacity: 50%;
+}
+
+.reset-game:active {
+    background-color: white;
+    color: steelblue;
+    border: 2px solid steelblue;
 }

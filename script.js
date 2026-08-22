@@ -189,6 +189,8 @@ const game = (() => {
 
 const displayController = (() => {
     const boardContainer = document.querySelector(".board-container");
+    const resultDisplay = document.querySelector(".game-result");
+    const resetButton = document.querySelector(".reset-game");
 
     const renderBoard = () => {
         const board = gameboard.getGameboard();
@@ -201,6 +203,7 @@ const displayController = (() => {
                 fieldButton.textContent = column[j];
                 fieldButton.dataset.row = i;
                 fieldButton.dataset.column = j;
+                fieldButton.classList.add("board__field")
                 fieldButton.addEventListener("click", handleFieldClick)
                 boardContainer.appendChild(fieldButton);
             }
@@ -214,7 +217,7 @@ const displayController = (() => {
         game.makeMove(row, column);
         renderBoard();
         if (game.getGameResult() !== null) {
-            const resultDisplay = document.querySelector(".game-result");
+            resetButton.disabled = false;
             if (game.getGameResult() === "tie") {
                 resultDisplay.textContent = "Game over. It's a tie!"
             } else {
@@ -222,6 +225,15 @@ const displayController = (() => {
             }
         }
     };
+
+    const handleResetButtonClick = () => {
+        game.restartGame();
+        renderBoard();
+        resultDisplay.textContent = "";
+        resetButton.disabled = true;
+    };
+
+    resetButton.addEventListener("click", handleResetButtonClick);
 
     return {
         renderBoard,
