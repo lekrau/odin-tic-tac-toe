@@ -203,11 +203,20 @@ const displayController = (() => {
             for (let j = 0; j < column.length; j++) {
                 const fieldButton = document.createElement("button");
                 fieldButton.textContent = column[j];
-                fieldButton.dataset.column = i;
-                fieldButton.dataset.row = j;
+                fieldButton.dataset.row = i;
+                fieldButton.dataset.column = j;
+                fieldButton.addEventListener("click", handleFieldClick)
                 boardContainer.appendChild(fieldButton);
             }
         }
+    };
+
+    const handleFieldClick = event => {
+        const target = event.target;
+        const row = target.dataset.row;
+        const column = target.dataset.column;
+        game.makeMove(row, column);
+        renderBoard();
     };
 
     return {
