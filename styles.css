@@ -73,8 +73,7 @@ body {
 }
 
 /* SPECIFICS */
-:root {
-}
+:root {}
 
 body {
     text-align: center;
@@ -86,6 +85,15 @@ h1 {
 
 button {
     border-radius: 0;
+    width: 3.5em;
+    height: 3.5em;
+    background-color: transparent;
+    border: 3px solid DarkBlue;
+    margin-right: -3px;
+    margin-bottom: -3px;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: Crimson;
 }
 
 .board-container {
