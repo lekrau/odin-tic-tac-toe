@@ -214,7 +214,14 @@ const displayController = (() => {
         const target = event.target;
         const row = target.dataset.row;
         const column = target.dataset.column;
-        game.makeMove(row, column);
+        try {
+            game.makeMove(row, column);
+        } catch (error) {
+            boardContainer.classList.add("error");
+            setTimeout(() => {
+                boardContainer.classList.remove("error");
+            }, 1000);
+        }
         renderBoard();
         if (game.getGameResult() !== null) {
             resetButton.disabled = false;
