@@ -185,7 +185,7 @@ const game = (() => {
 const displayController = (() => {
     const boardContainer = document.querySelector(".board-container");
     const resultDisplay = document.querySelector(".game-result");
-    const resetButton = document.querySelector(".reset-game");
+    const startGameButton = document.querySelector(".start-game");
 
     const renderBoard = () => {
         const board = gameboard.getGameboard();
@@ -219,7 +219,7 @@ const displayController = (() => {
         }
         renderBoard();
         if (game.getGameResult() !== null) {
-            resetButton.disabled = false;
+            startGameButton.disabled = false;
             if (game.getGameResult() === "tie") {
                 resultDisplay.textContent = "Game over. It's a tie!"
             } else {
@@ -228,18 +228,18 @@ const displayController = (() => {
         }
     };
 
-    const handleResetButtonClick = () => {
-        game.restartGame();
-        renderBoard();
-        resultDisplay.textContent = "";
-        resetButton.disabled = true;
+    const handleButtonClick = () => {
+        if (boardContainer.innerHTML === "") {
+            renderBoard();
+            startGameButton.disabled = true;
+            startGameButton.textContent = "Reset board";
+        } else {
+            game.restartGame();
+            renderBoard();
+            resultDisplay.textContent = "";
+            startGameButton.disabled = true;
+        }
     };
 
-    resetButton.addEventListener("click", handleResetButtonClick);
-
-    return {
-        renderBoard,
-    }
+    startGameButton.addEventListener("click", handleButtonClick);
 })();
-
-displayController.renderBoard();
