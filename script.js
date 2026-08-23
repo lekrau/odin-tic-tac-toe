@@ -100,11 +100,6 @@ const game = (() => {
         // If the last game was a tie the player who had less moves will begin
 
         gameResult = checkGameResult();
-        if (gameResult !== null) {
-            if (gameResult === "tie") {
-            } else {
-            }
-        }
     };
 
     const restartGame = () => {
