@@ -32,22 +32,27 @@ const gameboard = (() => {
 })();
 
 function Player(name, marker) {
-    const playerName = name;
+    let playerName = name;
     const playerMarker = marker;
     // Potential enhancement: Store an ongoing score per player
 
     const getName = () => playerName;
 
+    const setName = newName => {
+        playerName = newName;
+    };
+
     const getMarker = () => playerMarker;
 
     return {
         getName,
+        setName,
         getMarker,
     }
 };
 
 const game = (() => {
-    const players = [Player("player1", "x"), Player("player2", "o")];
+    const players = [Player("Player1", "x"), Player("Player2", "o")];
     let activePlayer = players[0];
     // Stores the winning player or "tie" for ties
     // Null means the game is not over yet
@@ -150,11 +155,16 @@ const game = (() => {
         }
     };
 
+    const setPlayerName = (playerIndex, newName) => {
+        players[playerIndex].setName(newName);
+    };
+
     return {
         getActivePlayer,
         makeMove,
         restartGame,
         getGameResult,
+        setPlayerName,
     }
 })();
 
@@ -183,9 +193,14 @@ const game = (() => {
 // console.log("game.getActivePlayer().getName():", game.getActivePlayer().getName());
 
 const displayController = (() => {
-    const boardContainer = document.querySelector(".board-container");
+    const boardContainer = document.querySelector(".game-board");
     const resultDisplay = document.querySelector(".game-result");
     const startGameButton = document.querySelector(".start-game");
+    const resetBoardButton = document.querySelector(".reset-board");
+    const player1Div = document.querySelector(".player1");
+    const player2Div = document.querySelector(".player2");
+    const player1NameInput = player1Div.querySelector("#player1__name");
+    const player2NameInput = player2Div.querySelector("#player2__name");
 
     const renderBoard = () => {
         const board = gameboard.getGameboard();
@@ -219,7 +234,7 @@ const displayController = (() => {
         }
         renderBoard();
         if (game.getGameResult() !== null) {
-            startGameButton.disabled = false;
+            resetBoardButton.disabled = false;
             if (game.getGameResult() === "tie") {
                 resultDisplay.textContent = "Game over. It's a tie!"
             } else {
@@ -228,18 +243,32 @@ const displayController = (() => {
         }
     };
 
-    const handleButtonClick = () => {
-        if (boardContainer.innerHTML === "") {
-            renderBoard();
-            startGameButton.disabled = true;
-            startGameButton.textContent = "Reset board";
-        } else {
-            game.restartGame();
-            renderBoard();
-            resultDisplay.textContent = "";
-            startGameButton.disabled = true;
+    const handleStartGameButtonClick = event => {
+        event.preventDefault();
+        const player1Name = player1NameInput.value;
+        const player2Name = player2NameInput.value;
+
+        if (player1Name !== "") {
+            game.setPlayerName(0, player1Name);
         }
+        if (player2Name !== "") {
+            game.setPlayerName(1, player2Name);
+        }
+
+        renderBoard();
+        startGameButton.classList.add("invisible");
+        player1Div.classList.add("invisible");
+        player2Div.classList.add("invisible");
+        resetBoardButton.classList.remove("invisible");
     };
 
-    startGameButton.addEventListener("click", handleButtonClick);
+    const handleResetBoardButtonClick = () => {
+        game.restartGame();
+        renderBoard();
+        resultDisplay.textContent = "";
+        resetBoardButton.disabled = true;
+    };
+
+    startGameButton.addEventListener("click", handleStartGameButtonClick);
+    resetBoardButton.addEventListener("click", handleResetBoardButtonClick);
 })();

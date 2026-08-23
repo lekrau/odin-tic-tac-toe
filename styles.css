@@ -83,6 +83,10 @@ h1 {
     margin: 1em;
 }
 
+.input {
+    margin: 0 0 15px 10px;
+}
+
 .board__field {
     border-radius: 0;
     width: 3.5em;
@@ -96,13 +100,13 @@ h1 {
     color: Crimson;
 }
 
-.board-container {
+.game-board {
     display: grid;
     grid-template-columns: repeat(3, min-content);
     justify-content: center;
 }
 
-.board-container.error {
+.game-board.error {
     animation-name: horizontal-shaking;
     animation-duration: 1s;
 }
@@ -134,7 +138,7 @@ h1 {
     font-size: 1.5em;
 }
 
-.start-game {
+.btn {
     background-color: steelblue;
     border: none;
     color: white;
@@ -142,16 +146,20 @@ h1 {
     border-radius: 15px;
 }
 
-.start-game:enabled {
+.btn:enabled, .board__field {
     cursor: pointer;
 }
 
-.start-game:disabled {
+.btn:disabled {
     opacity: 50%;
 }
 
-.start-game:active {
+.btn:enabled:active {
     background-color: white;
     color: steelblue;
     border: 2px solid steelblue;
+}
+
+.invisible {
+    display: none;
 }

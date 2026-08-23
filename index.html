@@ -11,9 +11,20 @@
 
 <body>
     <h1>Odin Tic Tac Toe</h1>
-    <div class="board-container"></div>
+    <form action="post">
+        <div class="player1">
+            <label for="player1__name">Player1 name:</label>
+            <input type="text" id="player1__name" placeholder="Player1" class="input">
+        </div>
+        <div class=" player2">
+            <label for="player2__name">Player2 name:</label>
+            <input type="text" id="player2__name" placeholder="Player2" class="input">
+        </div>
+        <button type="submit" class="btn start-game">Start game</button>
+    </form>
+    <div class="game-board"></div>
     <div class="game-result"></div>
-    <button type="button" class="start-game">Start game</button>
+    <button type="button" class="btn reset-board invisible" disabled>Reset board</button>
 </body>
 
 </html>
