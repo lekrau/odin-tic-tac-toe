@@ -3,14 +3,14 @@
 const EMPTY_FIELD = "";
 
 const gameboard = (() => {
-    const rows = 3;
-    const columns = 3;
+    const ROWS = 3;
+    const COLUMNS = 3;
     const gameboard = [];
 
     const resetBoard = () => {
-        for (let i = 0; i < rows; i++) {
+        for (let i = 0; i < ROWS; i++) {
             gameboard[i] = [];
-            for (let j = 0; j < columns; j++) {
+            for (let j = 0; j < COLUMNS; j++) {
                 gameboard[i].push(EMPTY_FIELD);
             }
         }
@@ -197,10 +197,10 @@ const displayController = (() => {
         boardContainer.innerHTML = "";
 
         for (let i = 0; i < board.length; i++) {
-            const column = board[i];
-            for (let j = 0; j < column.length; j++) {
+            const row = board[i];
+            for (let j = 0; j < row.length; j++) {
                 const fieldButton = document.createElement("button");
-                fieldButton.textContent = column[j];
+                fieldButton.textContent = row[j];
                 fieldButton.dataset.row = i;
                 fieldButton.dataset.column = j;
                 fieldButton.classList.add("board__field")
