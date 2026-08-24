@@ -34,7 +34,6 @@ const gameboard = (() => {
 function Player(name, marker) {
     let playerName = name;
     const playerMarker = marker;
-    // Potential enhancement: Store an ongoing score per player
 
     const getName = () => playerName;
 
@@ -75,11 +74,6 @@ const game = (() => {
     const makeMove = (row, column) => {
         const board = gameboard.getGameboard();
 
-        // Potential enhancements:
-        // game.makeMove(1.5, 0);
-        // game.makeMove("foo", 0);
-        // game.makeMove(undefined, 0);
-
         if (gameResult !== null) {
             throw new Error("The game is over. Use game.restartGame() to start a new one.");
         }
@@ -115,7 +109,6 @@ const game = (() => {
     const checkGameResult = () => {
         const board = gameboard.getGameboard();
 
-        // TODO (later): Probably can be done more elegantly
         if (board[0][0] != EMPTY_FIELD && board[0][0] === board[0][1] && board[0][1] === board[0][2]) {
             return identifyWinner(board[0][0]);
         } else if (board[1][0] != EMPTY_FIELD && board[1][0] === board[1][1] && board[1][1] === board[1][2]) {
@@ -167,30 +160,6 @@ const game = (() => {
         setPlayerName,
     }
 })();
-
-// Testing - TODO (later): Remove
-// console.log("game.getActivePlayer().getName():", game.getActivePlayer().getName());
-// X win?!
-// game.makeMove(0, 0); // x
-// game.makeMove(1, 0); // o
-// game.makeMove(0, 2); // x
-// game.makeMove(1, 1); // o
-// game.makeMove(0, 1); // x
-// game.makeMove(2, 0); // o
-// game.makeMove(2, 1); // x
-// game.makeMove(1, 2); // o
-// game.makeMove(2, 2); // x
-// Tie
-// game.makeMove(0, 0); // x
-// game.makeMove(0, 1); // o
-// game.makeMove(0, 2); // x
-// game.makeMove(1, 2); // o
-// game.makeMove(1, 0); // x
-// game.makeMove(2, 0); // o
-// game.makeMove(1, 1); // x
-// game.makeMove(2, 2); // o
-// game.makeMove(2, 1); // x
-// console.log("game.getActivePlayer().getName():", game.getActivePlayer().getName());
 
 const displayController = (() => {
     const boardContainer = document.querySelector(".game-board");
