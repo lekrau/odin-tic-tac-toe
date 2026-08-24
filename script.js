@@ -162,14 +162,15 @@ const game = (() => {
 })();
 
 const displayController = (() => {
-    const boardContainer = document.querySelector(".game-board");
-    const resultDisplay = document.querySelector(".game-result");
-    const startGameButton = document.querySelector(".start-game");
-    const resetBoardButton = document.querySelector(".reset-board");
-    const player1Div = document.querySelector(".player1");
-    const player2Div = document.querySelector(".player2");
+    const form = document.querySelector(".form");
+    const player1Div = form.querySelector(".player1");
+    const player2Div = form.querySelector(".player2");
     const player1NameInput = player1Div.querySelector("#player1__name");
     const player2NameInput = player2Div.querySelector("#player2__name");
+    const startGameButton = form.querySelector(".start-game");
+    const boardContainer = document.querySelector(".game-board");
+    const resultDisplay = document.querySelector(".game-result");
+    const resetBoardButton = document.querySelector(".reset-board");
 
     const renderBoard = () => {
         const board = gameboard.getGameboard();
@@ -212,7 +213,7 @@ const displayController = (() => {
         }
     };
 
-    const handleStartGameButtonClick = event => {
+    const handleFormSubmit = event => {
         event.preventDefault();
         const player1Name = player1NameInput.value;
         const player2Name = player2NameInput.value;
@@ -238,6 +239,6 @@ const displayController = (() => {
         resetBoardButton.disabled = true;
     };
 
-    startGameButton.addEventListener("click", handleStartGameButtonClick);
+    form.addEventListener("submit", handleFormSubmit);
     resetBoardButton.addEventListener("click", handleResetBoardButtonClick);
 })();
